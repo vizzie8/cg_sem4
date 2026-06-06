@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SGPA Calculator – Detailed</title>
+<style>
+  body {
+    background: #fdf6e3;
+    font-family: 'Lora', serif;
+    padding: 20px;
+    color: #5c4033;
+  }
+
+  h1 {
+    text-align: center;
+    color: #5c4033;
+    font-weight: 700;
+  }
+
+  table {
+    width: 100%;
+    max-width: 900px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(92, 64, 51, 0.2);
+  }
+
+  th, td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #d8c3a5;
+    background: #f5f0e6;
+    color: #5c4033;
+  }
+
+  thead th {
+    background: #d8c3a5;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3e2f2f;
+  }
+
+  input {
+    width: 70px;
+    padding: 6px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #c9b89c;
+    background: #faf4e6;
+    color: #5c4033;
+  }
+
+  input:focus {
+    border-color: #a78a63;
+    background: #f2e8d5;
+    outline: none;
+  }
+
+  button {
+    padding: 12px 30px;
+    background: linear-gradient(to right, #a78a63, #d8c3a5);
+    color: #3e2f2f;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    display: block;
+    margin: 20px auto;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(92, 64, 51, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(92, 64, 51, 0.3);
+  }
+
+  #result {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #f5f0e6;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    color: #5c4033;
+    box-shadow: 0 4px 12px rgba(92, 64, 51, 0.1);
+  }
+
+  /* Small responsive tweak */
+  @media (max-width: 700px) {
+    input { width: 60px; }
+    table { font-size: 14px; }
+  }
+
+  .branch-wrap {
+    text-align:center; margin-bottom:20px;
+  }
+  .branch-select {
+    padding:8px; border-radius:8px; font-family:'Lora'; font-weight:700;
+    border: 1px solid #c9b89c; background: #faf4e6; color: #5c4033;
+  }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<h1>SGPA Calculator – Detailed</h1>
+
+<!-- Branch Selector -->
+<div class="branch-wrap">
+  <label style="font-weight:700;">Select Branch: </label>
+  <select id="branchSelect" class="branch-select">
+    <option value="CE">Computer Engineering (CE)</option>
+    <option value="IT">Information Technology (IT)</option>
+    <option value="AIDS">Artificial Intelligence & Data Science (AIDS)</option>
+  </select>
+</div>
+
+<form id="gpaForm">
+<table>
+<thead>
+<tr>
+  <th>Subject</th>
+  <th>Endsem</th>
+  <th>Insem</th>
+  <th>CIE</th>
+  <th>Lab / Oral</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+
+<button type="submit">Calculate SGPA</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+/* ---------------- CE SUBJECTS (original) ---------------- */
+/* ---------------- CE SUBJECTS (NEW SEM VI) ---------------- */
+const CE_SUBJECTS = [
+
+  { name: "SE", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "DMS", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "OS", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "MDM-2", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "OE-II", credits: 2, theory: true, endMax: 50, inMax: 0, cieMax: 0, labMax: 0 },
+
+  { name: "OSL", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 25 },
+
+  { name: "DMSL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 25 },
+
+  { name: "PBL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 50 },
+
+  { name: "MDM-2#", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "EP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "EPL", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "CDC", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "ICSR", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 25 }
+
+];
+
+/* ---------------- IT SUBJECTS ---------------- */
+const IT_SUBJECTS = [
+  { name: "DSA", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+  { name: "CNT", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "DSAL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 75 },
+  { name: "CNTL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 75 },
+
+  { name: "MDM-1", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+  { name: "MDM-1#", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "FLS", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
+  { name: "ESDL", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
+  { name: "PDCR", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+  { name: "ESDM", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+  { name: "UHV", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 25 }
+];
+
+/* ---------------- AIDS SUBJECTS ---------------- */
+const AIDS_SUBJECTS = [
+  { name: "DM", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+  { name: "DS", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+  { name: "AI", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "DSL", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 50 },   // TW25 + P25
+  { name: "AIDSL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 100 }, // TW50 + P50
+
+  { name: "MDM-1", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+  { name: "MDM-1#", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  { name: "FLS", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
+  { name: "PDCR", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+  { name: "MIS", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
+  { name: "UHV", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 25 }
+];
+
+/* Default subjects = CE */
+let subjects = CE_SUBJECTS;
+
+/* ----------- Build Table Dynamically ----------- */
+function buildTable() {
+  const body = document.getElementById("tableBody");
+  body.innerHTML = "";
+
+  subjects.forEach(s => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${s.name}</td>
+      <td><input type="number" min="0" max="${s.endMax}" name="${s.name}_end" ${s.endMax ? "" : "disabled"}></td>
+      <td><input type="number" min="0" max="${s.inMax}" name="${s.name}_in" ${s.inMax ? "" : "disabled"}></td>
+      <td><input type="number" min="0" max="${s.cieMax}" name="${s.name}_cie" ${s.cieMax ? "" : "disabled"}></td>
+      <td><input type="number" min="0" max="${s.labMax}" name="${s.name}_lab" ${s.labMax ? "" : "disabled"}></td>
+    `;
+    body.appendChild(tr);
+  });
+}
+buildTable();
+
+/* -------- Branch Change Handler -------- */
+document.getElementById("branchSelect").addEventListener("change", () => {
+  const branch = document.getElementById("branchSelect").value;
+  if (branch === "IT") subjects = IT_SUBJECTS;
+  else if (branch === "AIDS") subjects = AIDS_SUBJECTS;
+  else subjects = CE_SUBJECTS;
+  buildTable();
+});
+
+/* ----------- Grade Point Functions ----------- */
+function gpTheory(total) {
+  // total is either raw marks (out of 100) or percent when caller passes percent
+  if(total>=91) return 10;
+  if(total>=81) return 9;
+  if(total>=71) return 8;
+  if(total>=61) return 7;
+  if(total>=51) return 6;
+  if(total>=40) return 5;
+  return 0;
+}
+
+function gpLab(marks, max) {
+  if(!max) return 0;
+  // If lab max is 100 or 75, convert to percent and use theory scale
+  if(max===100 || max===75){
+    const percent = (marks/max)*100;
+    return gpTheory(percent);
+  }
+  // If lab max is 50 or 25, use custom thresholds (from your original logic)
+  if(max===50){
+    if(marks>=46) return 10;
+    if(marks>=41) return 9;
+    if(marks>=36) return 8;
+    if(marks>=31) return 7;
+    if(marks>=26) return 6;
+    if(marks>=21) return 5;
+    return 0;
+  }
+  if(max===25){
+    if(marks>=23) return 10;
+    if(marks>=21) return 9;
+    if(marks>=18) return 8;
+    if(marks>=16) return 7;
+    if(marks>=13) return 6;
+    if(marks>=10) return 5;
+    return 0;
+  }
+  return 0;
+}
+
+/* ------------------- SGPA Calculation ------------------- */
+document.getElementById("gpaForm").addEventListener("submit", e=>{
+  e.preventDefault();
+
+  let totalWeighted = 0;
+  let totalCredits = 0;
+  let rowsHTML = "";
+
+  subjects.forEach(s=>{
+    const end = +document.querySelector(`[name="${s.name}_end"]`)?.value || 0;
+    const ins = +document.querySelector(`[name="${s.name}_in"]`)?.value || 0;
+    const cie = +document.querySelector(`[name="${s.name}_cie"]`)?.value || 0;
+    const lab = +document.querySelector(`[name="${s.name}_lab"]`)?.value || 0;
+
+    let gp = 0;
+    let calcDetail = "";
+
+    if(s.theory){
+
+  const total = end + ins + cie;
+  const maxMarks = s.endMax + s.inMax + s.cieMax;
+
+  const percentage =
+    maxMarks > 0
+      ? (total / maxMarks) * 100
+      : 0;
+
+  gp = gpTheory(percentage);
+
+  calcDetail =
+    `(${end} + ${ins} + ${cie}) = ${total}/${maxMarks}
+     (${percentage.toFixed(2)}%)`;
+} else if(s.labMax){
+
+  // Subjects having TW + Oral/Practical
+  if(s.cieMax > 0){
+
+    const totalLabMarks = cie + lab;
+    const maxLabMarks = s.cieMax + s.labMax;
+
+    const percent = (totalLabMarks / maxLabMarks) * 100;
+
+    gp = gpTheory(percent);
+
+    calcDetail =
+      `(${cie} + ${lab}) = ${totalLabMarks}/${maxLabMarks}
+      (${percent.toFixed(2)}%)`;
+
+  } else {
+
+    // Original behaviour for IT/AIDS labs
+    gp = gpLab(lab, s.labMax);
+
+    calcDetail =
+      `Lab/Practical marks = ${lab} / ${s.labMax}`;
+  }
+}else {
+      // CIE-only subject (CIE out of cieMax). Scale to percent then map
+      const percent = s.cieMax ? (cie / s.cieMax) * 100 : 0;
+      gp = gpTheory(percent);
+      calcDetail = `CIE marks = ${cie} / ${s.cieMax} => ${percent.toFixed(2)}%`;
+    }
+
+    totalWeighted += gp * s.credits;
+    totalCredits += s.credits;
+
+    rowsHTML += `<tr>
+      <td>${s.name}</td>
+      <td style="text-align:left; padding-left:10px;">${calcDetail}</td>
+      <td>Credits: ${s.credits}</td>
+      <td>GP: ${gp}</td>
+      <td>GP × Credit: ${gp * s.credits}</td>
+    </tr>`;
+  });
+
+  const sgpa = totalCredits ? (totalWeighted / totalCredits).toFixed(2) : "0.00";
+
+  document.getElementById("result").innerHTML = `
+    <h2>Detailed Calculation</h2>
+    <table>
+      <thead>
+        <tr><th>Subject</th><th>Calculation</th><th>Credits</th><th>GP</th><th>GP × Credit</th></tr>
+      </thead>
+      <tbody>${rowsHTML}</tbody>
+    </table>
+    <h2>Total Weighted Points: ${totalWeighted}</h2>
+    <h2>Total Credits: ${totalCredits}</h2>
+    <h2>SGPA: ${sgpa} / 10</h2>
+  `;
+});
+</script>
+
+</body>
+</html>
