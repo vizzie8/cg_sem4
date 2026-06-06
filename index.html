@@ -176,41 +176,81 @@ const CE_SUBJECTS = [
 ];
 
 /* ---------------- IT SUBJECTS ---------------- */
+/* ---------------- IT SUBJECTS (SEM IV 2025-26) ---------------- */
 const IT_SUBJECTS = [
-  { name: "DSA", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
-  { name: "CNT", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
 
-  { name: "DSAL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 75 },
-  { name: "CNTL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 75 },
+  // Theory Subjects
+  { name: "ADSA", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "CNT", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "ESDM", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
 
   { name: "MDM-1", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  // Labs
+  { name: "ADSAL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 25 },
+
+  { name: "CNTL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 25 },
+
+  // MDM Practical
   { name: "MDM-1#", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
 
-  { name: "FLS", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
-  { name: "ESDL", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
-  { name: "PDCR", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
-  { name: "ESDM", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
-  { name: "UHV", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
-  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 25 }
+  // FEC Subjects
+  { name: "FLS", credits: 2, theory: true, endMax: 50, inMax: 0, cieMax: 0, labMax: 0 },
+
+  { name: "ESDL", credits: 2, theory: true, endMax: 50, inMax: 0, cieMax: 0, labMax: 0 },
+
+  // VSEC
+  { name: "PDCR", credits: 1, theory: true, endMax: 25, inMax: 0, cieMax: 0, labMax: 0 },
+
+  // UHV
+  { name: "UHV", credits: 2, theory: true, endMax: 25, inMax: 0, cieMax: 0, labMax: 0 },
+
+  // CEP
+  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 }
 ];
 
 /* ---------------- AIDS SUBJECTS ---------------- */
+/* ---------------- AIDS SUBJECTS (SEM IV 2025-26) ---------------- */
 const AIDS_SUBJECTS = [
-  { name: "DM", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
-  { name: "DS", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
-  { name: "AI", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
 
-  { name: "DSL", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 50 },   // TW25 + P25
-  { name: "AIDSL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 100 }, // TW50 + P50
+  // PCC Theory
+  { name: "ML", credits: 3, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
 
-  { name: "MDM-1", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
-  { name: "MDM-1#", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+  { name: "DBMS", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
 
-  { name: "FLS", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
-  { name: "PDCR", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
-  { name: "MIS", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
-  { name: "UHV", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
-  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 0, labMax: 25 }
+  { name: "OS", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  // FCN (TW only)
+  { name: "FCN", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  // LP-1 (TW 50 + Practical 50)
+  { name: "LP-1", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 50 },
+
+  // KSEL (TW 50)
+  { name: "KSEL", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 50, labMax: 0 },
+
+  // MDM
+  { name: "MDM-2", credits: 2, theory: true, endMax: 60, inMax: 20, cieMax: 20, labMax: 0 },
+
+  { name: "MDM-2#", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  // Open Elective
+  { name: "OE-II", credits: 2, theory: true, endMax: 50, inMax: 0, cieMax: 0, labMax: 0 },
+
+  // AEC
+  { name: "CDC", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  // EEM
+  { name: "PM", credits: 2, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  // VEC
+  { name: "ICSR", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 },
+
+  // CEP
+  { name: "CEP", credits: 1, theory: false, endMax: 0, inMax: 0, cieMax: 25, labMax: 0 }
+
 ];
 
 /* Default subjects = CE */
